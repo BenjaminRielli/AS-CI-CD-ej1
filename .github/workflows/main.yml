@@ -1,0 +1,19 @@
+name: Workflow ej1
+
+on: push
+
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Bajar codigo
+        uses: actions/checkout@v5
+
+      - name: Instalar pytest
+        run: pip install pytest
+
+      - name: Ejecutar pytest
+        run: pytest test.py
+
+        
