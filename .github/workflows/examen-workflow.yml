@@ -1,0 +1,32 @@
+name: examen-workflow
+
+on:
+  push:
+    branches: [ nueva-caracteristica ]
+
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Bajar codigo
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.10'
+
+      - name: Instalar pytest
+        run: pip install pytest
+
+      - name: Ejecutar pytest
+        run: pytest test.py
+
+      - name: Construir imagen Docker
+        uses: docker/build-push-action@v6
+        with:
+          context: .   # Indica el directorio donde se encuentra el Dockerfile
+          push: false  # Indica que NO se sube la imagen a un registro
+
+        
